@@ -1,6 +1,6 @@
 cask "m_capture" do
-  version "1.8.1"
-  sha256 "485c284bce50e736c19818c3b0438fe1fe750f6f6f8c9994c86ee0c6b568bcb9"
+  version "1.8.2"
+  sha256 "2921a3b7ceee8eaaf8d846a5afbc2f73718fc975730fbb26014bb9431339d143"
 
   url "https://github.com/tuyen-nguyen-mesoneer/m_capture/releases/download/#{version}/m_capture.dmg"
   name "m_capture"
@@ -28,9 +28,11 @@ cask "m_capture" do
   # The app is signed with a self-signed identity, not notarized, so a quarantine
   # xattr would make Gatekeeper block the first launch — the manual `xattr -dr` step
   # this cask exists to remove.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{Dir.home}/Applications/m_capture.app"]
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args:           ["-dr", "com.apple.quarantine", "#{Dir.home}/Applications/m_capture.app"],
+        writable_paths: ["Applications/m_capture.app"],
+        writable_base:  :home
   end
 
   uninstall quit: "io.mesoneer.mcapture"
