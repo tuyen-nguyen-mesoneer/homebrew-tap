@@ -27,10 +27,13 @@ cask "m_capture" do
 
   # The app is signed with a self-signed identity, not notarized, so a quarantine
   # xattr would make Gatekeeper block the first launch — the manual `xattr -dr` step
-  # this cask exists to remove.
+  # this cask exists to remove. The path is relative to `chdir` because a steps block
+  # may only hold step DSL and literals — `Dir.home` fails `brew style`
+  # (Cask/InstallSteps) — and a `~` path spec is one Homebrew expands itself.
   postflight_steps do
     run "/usr/bin/xattr",
-        args:           ["-dr", "com.apple.quarantine", "#{Dir.home}/Applications/m_capture.app"],
+        args:           ["-dr", "com.apple.quarantine", "m_capture.app"],
+        chdir:          "~/Applications",
         writable_paths: ["Applications/m_capture.app"],
         writable_base:  :home
   end
