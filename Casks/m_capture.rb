@@ -1,6 +1,6 @@
 cask "m_capture" do
-  version "1.8.5"
-  sha256 "4db5732e2471a9d611e6cafcfaba1295dec8ca3e9c3915e7d84cf23fb232cd7a"
+  version "1.8.6"
+  sha256 "e0b5529fa8191cfad0244b026ff8d369d4aa1279ee0900d1bbf9fad464b304b9"
 
   url "https://github.com/tuyen-nguyen-mesoneer/m_capture/releases/download/#{version}/m_capture.dmg"
   name "m_capture"
